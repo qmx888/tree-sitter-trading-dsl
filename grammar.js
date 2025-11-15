@@ -60,6 +60,10 @@ module.exports = grammar({
 
     identifier: $ => /[A-Za-z_][A-Za-z0-9_]*/,
 
+    number: $ => /\d+/,
+
+    string: $ => /"[^"]*"/,
+
     // Keyword definitions for TradingDSL
     param_keyword: $ => 'PARAM',
     name_keyword: $ => 'NAME',
@@ -69,8 +73,6 @@ module.exports = grammar({
     rebalance_keyword: $ => 'REBALANCE',
     selection_keyword: $ => 'SELECTION',
     allocation_keyword: $ => 'ALLOCATION',
-
-    number: $ => /\d+/,
 
     comment: $ => choice(
       seq('//', /.*/),

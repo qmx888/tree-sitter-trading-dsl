@@ -17,7 +17,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "metadata_definition"
+            "name": "metadata_statement"
           },
           {
             "type": "SYMBOL",
@@ -62,8 +62,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "PARAM"
+          "type": "SYMBOL",
+          "name": "param_keyword"
         },
         {
           "type": "FIELD",
@@ -96,29 +96,106 @@
         }
       ]
     },
-    "metadata_definition": {
+    "metadata_statement": {
       "type": "SEQ",
       "members": [
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "NAME"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "name_keyword"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "string"
+                  }
+                }
+              ]
             },
             {
-              "type": "STRING",
-              "value": "TYPE"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "type_keyword"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "buy_keyword"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "sell_keyword"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "rebalance_keyword"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "selection_keyword"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "allocation_keyword"
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "string"
-          }
         }
       ]
     },
@@ -245,6 +322,38 @@
     "string": {
       "type": "PATTERN",
       "value": "\"[^\"]*\""
+    },
+    "param_keyword": {
+      "type": "STRING",
+      "value": "PARAM"
+    },
+    "name_keyword": {
+      "type": "STRING",
+      "value": "NAME"
+    },
+    "type_keyword": {
+      "type": "STRING",
+      "value": "TYPE"
+    },
+    "buy_keyword": {
+      "type": "STRING",
+      "value": "BUY"
+    },
+    "sell_keyword": {
+      "type": "STRING",
+      "value": "SELL"
+    },
+    "rebalance_keyword": {
+      "type": "STRING",
+      "value": "REBALANCE"
+    },
+    "selection_keyword": {
+      "type": "STRING",
+      "value": "SELECTION"
+    },
+    "allocation_keyword": {
+      "type": "STRING",
+      "value": "ALLOCATION"
     },
     "comment": {
       "type": "CHOICE",

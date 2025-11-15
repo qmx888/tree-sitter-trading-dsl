@@ -94,12 +94,22 @@
     }
   },
   {
-    "type": "metadata_definition",
+    "type": "metadata_statement",
     "named": true,
     "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "string",
@@ -107,6 +117,40 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "allocation_keyword",
+          "named": true
+        },
+        {
+          "type": "buy_keyword",
+          "named": true
+        },
+        {
+          "type": "name_keyword",
+          "named": true
+        },
+        {
+          "type": "rebalance_keyword",
+          "named": true
+        },
+        {
+          "type": "selection_keyword",
+          "named": true
+        },
+        {
+          "type": "sell_keyword",
+          "named": true
+        },
+        {
+          "type": "type_keyword",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -137,6 +181,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "param_keyword",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -153,7 +207,7 @@
           "named": true
         },
         {
-          "type": "metadata_definition",
+          "type": "metadata_statement",
           "named": true
         },
         {
@@ -222,23 +276,39 @@
     "named": false
   },
   {
-    "type": "NAME",
-    "named": false
+    "type": "allocation_keyword",
+    "named": true
   },
   {
-    "type": "PARAM",
-    "named": false
-  },
-  {
-    "type": "TYPE",
-    "named": false
+    "type": "buy_keyword",
+    "named": true
   },
   {
     "type": "identifier",
     "named": true
   },
   {
+    "type": "name_keyword",
+    "named": true
+  },
+  {
     "type": "number",
+    "named": true
+  },
+  {
+    "type": "param_keyword",
+    "named": true
+  },
+  {
+    "type": "rebalance_keyword",
+    "named": true
+  },
+  {
+    "type": "selection_keyword",
+    "named": true
+  },
+  {
+    "type": "sell_keyword",
     "named": true
   },
   {
@@ -247,6 +317,10 @@
   },
   {
     "type": "string",
+    "named": true
+  },
+  {
+    "type": "type_keyword",
     "named": true
   },
   {
