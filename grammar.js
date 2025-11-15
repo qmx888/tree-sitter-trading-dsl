@@ -1,101 +1,154 @@
 module.exports = grammar({
   name: 'trading_dsl',
 
-  externals: $ => [],
-
-  extras: $ => [/[\s\f\uFEFF\u2060\u200B]/, ','],
+  extras: $ => [
+    /[\s\f\uFEFF\u2060\u200B]/,
+    $.comment
+  ],
 
   rules: {
-    source_file: $ => repeat(choice(
+    source_file: $ => repeat($._top_level_statement),
+
+    _top_level_statement: $ => choice(
+      $.strategy_declaration,
       $.name_statement,
+      $.type_statement,
       $.param_statement,
+      $.assignment_statement
+    ),
+
+    strategy_declaration: $ => seq(
+      'strategy',
+      $.identifier,
+      $.block
+    ),
+
+    block: $ => seq(
+      '{',
+      repeat($._statement),
+      '}'
+    ),
+
+    _statement: $ => choice(
       $.assignment_statement,
       $.buy_statement,
       $.sell_statement,
-      $.comment
-    )),
+      $.param_statement,
+      $.name_statement,
+      $.type_statement
+    ),
 
     name_statement: $ => seq(
       'NAME',
       $.string
     ),
 
-    param_statement: $ => seq(
-      'PARAM',
-      commaSep1($.param_definition)
+    type_statement: $ => seq(
+      'TYPE',
+      $.string
     ),
 
-    param_definition: $ => seq(
+    param_statement: $ => seq(
+      'PARAM',
+      commaSep1($.param_assignment)
+    ),
+
+    param_assignment: $ => seq(
       $.identifier,
       '=',
-      $.number
+      $.expression
     ),
 
     assignment_statement: $ => seq(
       $.identifier,
-      ':=',
+      '=',
       $.expression
     ),
 
     buy_statement: $ => seq(
       'BUY',
-      ':',
+      '=',
       $.expression
     ),
 
     sell_statement: $ => seq(
       'SELL',
-      ':',
+      '=',
       $.expression
     ),
 
     expression: $ => choice(
-      $.function_call,
-      $.identifier,
-      $.number,
-      $.string,
-      $.price_variable,
       $.logical_expression,
       $.comparison_expression,
-      $.not_expression
-    ),
-
-    not_expression: $ => seq(
-      'not',
-      $.expression
-    ),
-
-    function_call: $ => seq(
+      $.additive_expression,
+      $.multiplicative_expression,
+      $.unary_expression,
+      $.function_call,
+      $.parenthesized_expression,
+      $.price_variable,
       $.identifier,
+      $.number,
+      $.string
+    ),
+
+    parenthesized_expression: $ => seq(
       '(',
-      commaSep1($.expression),
+      $.expression,
       ')'
     ),
 
-    logical_expression: $ => prec.left(2, seq(
-      $.expression,
-      choice('and', 'or', 'not'),
+    unary_expression: $ => prec.left(5, seq(
+      choice('-', 'not'),
       $.expression
     )),
 
-    comparison_expression: $ => prec.left(3, seq(
+    multiplicative_expression: $ => prec.left(4, seq(
+      $.expression,
+      choice('*', '/'),
+      $.expression
+    )),
+
+    additive_expression: $ => prec.left(3, seq(
+      $.expression,
+      choice('+', '-'),
+      $.expression
+    )),
+
+    logical_expression: $ => prec.left(1, seq(
+      $.expression,
+      choice('and', 'or'),
+      $.expression
+    )),
+
+    comparison_expression: $ => prec.left(2, seq(
       $.expression,
       choice('<', '>', '<=', '>=', '==', '!='),
       $.expression
     )),
 
+    function_call: $ => seq(
+      $.identifier,
+      '(',
+      optional(commaSep1($.expression)),
+      ')'
+    ),
+
     price_variable: $ => choice('C', 'O', 'H', 'L', 'V'),
 
-    identifier: $ => /[A-Za-z_][A-Za-z0-9_]*/,
+    identifier: $ => /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*/,
 
-    number: $ => /\d+/,
+    number: $ => /\d+(\.\d+)?/,
 
-    string: $ => /"[^"]*"/,
+    string: $ => /"([^"\\]|\\.)*"/,
 
-    comment: $ => choice(
-      seq('//', /.*/),
-      seq('#', /.*/)
-    )
+    comment: $ => token(choice(
+      seq('//', /[^\n]*/),
+      seq(
+        '/*',
+        repeat(choice(/[^*]/, /\*[^/]/)),
+        '*/'
+      )
+    ))
   }
 });
 
