@@ -18,7 +18,7 @@ module.exports = grammar({
     ),
 
     parameter_definition: $ => seq(
-      'PARAM',
+      $.param_keyword,
       field('name', $.identifier),
       '=',
       field('value', choice($.number, $.string))
@@ -26,13 +26,13 @@ module.exports = grammar({
 
     metadata_statement: $ => seq(
       choice(
-        seq('NAME', field('value', $.string)),
-        seq('TYPE', field('value', $.string)),
-        seq('BUY', field('condition', $.expression)),
-        seq('SELL', field('condition', $.expression)),
-        seq('REBALANCE', field('condition', $.expression)),
-        'SELECTION',
-        'ALLOCATION'
+        seq($.name_keyword, field('value', $.string)),
+        seq($.type_keyword, field('value', $.string)),
+        seq($.buy_keyword, field('condition', $.expression)),
+        seq($.sell_keyword, field('condition', $.expression)),
+        seq($.rebalance_keyword, field('condition', $.expression)),
+        $.selection_keyword,
+        $.allocation_keyword
       )
     ),
 
@@ -60,9 +60,17 @@ module.exports = grammar({
 
     identifier: $ => /[A-Za-z_][A-Za-z0-9_]*/,
 
-    number: $ => /\d+/,
+    // Keyword definitions for TradingDSL
+    param_keyword: $ => 'PARAM',
+    name_keyword: $ => 'NAME',
+    type_keyword: $ => 'TYPE',
+    buy_keyword: $ => 'BUY',
+    sell_keyword: $ => 'SELL',
+    rebalance_keyword: $ => 'REBALANCE',
+    selection_keyword: $ => 'SELECTION',
+    allocation_keyword: $ => 'ALLOCATION',
 
-    string: $ => /"[^"]*"/,
+    number: $ => /\d+/,
 
     comment: $ => choice(
       seq('//', /.*/),
