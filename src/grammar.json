@@ -242,6 +242,38 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "price_close"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "price_open"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "price_high"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "price_low"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "price_volume"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "and_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "or_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "not_keyword"
         }
       ]
     },
@@ -354,6 +386,83 @@
     "allocation_keyword": {
       "type": "STRING",
       "value": "ALLOCATION"
+    },
+    "price_close": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "C"
+        },
+        {
+          "type": "STRING",
+          "value": "CLOSE"
+        }
+      ]
+    },
+    "price_open": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "O"
+        },
+        {
+          "type": "STRING",
+          "value": "OPEN"
+        }
+      ]
+    },
+    "price_high": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "H"
+        },
+        {
+          "type": "STRING",
+          "value": "HIGH"
+        }
+      ]
+    },
+    "price_low": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "L"
+        },
+        {
+          "type": "STRING",
+          "value": "LOW"
+        }
+      ]
+    },
+    "price_volume": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "V"
+        },
+        {
+          "type": "STRING",
+          "value": "VOLUME"
+        }
+      ]
+    },
+    "and_keyword": {
+      "type": "STRING",
+      "value": "and"
+    },
+    "or_keyword": {
+      "type": "STRING",
+      "value": "or"
+    },
+    "not_keyword": {
+      "type": "STRING",
+      "value": "not"
     },
     "comment": {
       "type": "CHOICE",

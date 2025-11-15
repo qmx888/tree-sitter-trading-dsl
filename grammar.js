@@ -46,7 +46,15 @@ module.exports = grammar({
       $.function_call,
       $.identifier,
       $.number,
-      $.string
+      $.string,
+      $.price_close,
+      $.price_open,
+      $.price_high,
+      $.price_low,
+      $.price_volume,
+      $.and_keyword,
+      $.or_keyword,
+      $.not_keyword
     ),
 
     function_call: $ => seq(
@@ -73,6 +81,18 @@ module.exports = grammar({
     rebalance_keyword: $ => 'REBALANCE',
     selection_keyword: $ => 'SELECTION',
     allocation_keyword: $ => 'ALLOCATION',
+
+    // Price variable definitions
+    price_close: $ => choice('C', 'CLOSE'),
+    price_open: $ => choice('O', 'OPEN'),
+    price_high: $ => choice('H', 'HIGH'),
+    price_low: $ => choice('L', 'LOW'),
+    price_volume: $ => choice('V', 'VOLUME'),
+
+    // Logical operator definitions
+    and_keyword: $ => 'and',
+    or_keyword: $ => 'or',
+    not_keyword: $ => 'not',
 
     comment: $ => choice(
       seq('//', /.*/),

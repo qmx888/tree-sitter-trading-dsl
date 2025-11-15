@@ -39,6 +39,10 @@
       "required": true,
       "types": [
         {
+          "type": "and_keyword",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
@@ -47,7 +51,35 @@
           "named": true
         },
         {
+          "type": "not_keyword",
+          "named": true
+        },
+        {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "or_keyword",
+          "named": true
+        },
+        {
+          "type": "price_close",
+          "named": true
+        },
+        {
+          "type": "price_high",
+          "named": true
+        },
+        {
+          "type": "price_low",
+          "named": true
+        },
+        {
+          "type": "price_open",
+          "named": true
+        },
+        {
+          "type": "price_volume",
           "named": true
         },
         {
@@ -194,6 +226,31 @@
     }
   },
   {
+    "type": "price_close",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "price_high",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "price_low",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "price_open",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "price_volume",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -276,7 +333,51 @@
     "named": false
   },
   {
+    "type": "C",
+    "named": false
+  },
+  {
+    "type": "CLOSE",
+    "named": false
+  },
+  {
+    "type": "H",
+    "named": false
+  },
+  {
+    "type": "HIGH",
+    "named": false
+  },
+  {
+    "type": "L",
+    "named": false
+  },
+  {
+    "type": "LOW",
+    "named": false
+  },
+  {
+    "type": "O",
+    "named": false
+  },
+  {
+    "type": "OPEN",
+    "named": false
+  },
+  {
+    "type": "V",
+    "named": false
+  },
+  {
+    "type": "VOLUME",
+    "named": false
+  },
+  {
     "type": "allocation_keyword",
+    "named": true
+  },
+  {
+    "type": "and_keyword",
     "named": true
   },
   {
@@ -292,7 +393,15 @@
     "named": true
   },
   {
+    "type": "not_keyword",
+    "named": true
+  },
+  {
     "type": "number",
+    "named": true
+  },
+  {
+    "type": "or_keyword",
     "named": true
   },
   {
