@@ -300,11 +300,19 @@
           "named": true
         },
         {
+          "type": "buy_statement",
+          "named": true
+        },
+        {
           "type": "name_statement",
           "named": true
         },
         {
           "type": "param_statement",
+          "named": true
+        },
+        {
+          "type": "sell_statement",
           "named": true
         },
         {
@@ -397,6 +405,14 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ":=",
     "named": false
   },
   {

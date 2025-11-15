@@ -7,14 +7,11 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: $ => repeat($._top_level_statement),
+    source_file: $ => repeat($._top_level_item),
 
-    _top_level_statement: $ => choice(
+    _top_level_item: $ => choice(
       $.strategy_declaration,
-      $.name_statement,
-      $.type_statement,
-      $.param_statement,
-      $.assignment_statement
+      $._statement
     ),
 
     strategy_declaration: $ => seq(
@@ -61,19 +58,19 @@ module.exports = grammar({
 
     assignment_statement: $ => seq(
       $.identifier,
-      '=',
+      ':=',
       $.expression
     ),
 
     buy_statement: $ => seq(
       'BUY',
-      '=',
+      ':',
       $.expression
     ),
 
     sell_statement: $ => seq(
       'SELL',
-      '=',
+      ':',
       $.expression
     ),
 
@@ -114,15 +111,15 @@ module.exports = grammar({
       $.expression
     )),
 
-    logical_expression: $ => prec.left(1, seq(
-      $.expression,
-      choice('and', 'or'),
-      $.expression
-    )),
-
     comparison_expression: $ => prec.left(2, seq(
       $.expression,
       choice('<', '>', '<=', '>=', '==', '!='),
+      $.expression
+    )),
+
+    logical_expression: $ => prec.left(1, seq(
+      $.expression,
+      choice('and', 'or'),
       $.expression
     )),
 
@@ -143,6 +140,7 @@ module.exports = grammar({
 
     comment: $ => token(choice(
       seq('//', /[^\n]*/),
+      seq('#', /[^\n]*/),
       seq(
         '/*',
         repeat(choice(/[^*]/, /\*[^/]/)),
