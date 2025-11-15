@@ -9,15 +9,23 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "strategy_definition"
+            "name": "name_statement"
           },
           {
             "type": "SYMBOL",
-            "name": "parameter_definition"
+            "name": "param_statement"
           },
           {
             "type": "SYMBOL",
-            "name": "metadata_statement"
+            "name": "assignment_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "buy_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "sell_statement"
           },
           {
             "type": "SYMBOL",
@@ -26,201 +34,118 @@
         ]
       }
     },
-    "strategy_definition": {
+    "name_statement": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "strategy"
+          "value": "NAME"
         },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "assignment"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "}"
-        }
-      ]
-    },
-    "parameter_definition": {
-      "type": "SEQ",
-      "members": [
         {
           "type": "SYMBOL",
-          "name": "param_keyword"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "="
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "number"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "string"
-              }
-            ]
-          }
+          "name": "string"
         }
       ]
     },
-    "metadata_statement": {
+    "param_statement": {
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "STRING",
+          "value": "PARAM"
+        },
+        {
+          "type": "SEQ",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "name_keyword"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "type_keyword"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "buy_keyword"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "condition",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expression"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "sell_keyword"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "condition",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expression"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "rebalance_keyword"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "condition",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expression"
-                  }
-                }
-              ]
-            },
-            {
               "type": "SYMBOL",
-              "name": "selection_keyword"
+              "name": "param_definition"
             },
             {
-              "type": "SYMBOL",
-              "name": "allocation_keyword"
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "param_definition"
+                  }
+                ]
+              }
             }
           ]
         }
       ]
     },
-    "assignment": {
+    "param_definition": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "left",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",
           "value": "="
         },
         {
-          "type": "FIELD",
-          "name": "right",
-          "content": {
-            "type": "SYMBOL",
-            "name": "expression"
-          }
+          "type": "SYMBOL",
+          "name": "number"
+        }
+      ]
+    },
+    "assignment_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "buy_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "BUY"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "sell_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SELL"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
         }
       ]
     },
@@ -245,35 +170,32 @@
         },
         {
           "type": "SYMBOL",
-          "name": "price_close"
+          "name": "price_variable"
         },
         {
           "type": "SYMBOL",
-          "name": "price_open"
+          "name": "logical_expression"
         },
         {
           "type": "SYMBOL",
-          "name": "price_high"
+          "name": "comparison_expression"
         },
         {
           "type": "SYMBOL",
-          "name": "price_low"
+          "name": "not_expression"
+        }
+      ]
+    },
+    "not_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "not"
         },
         {
           "type": "SYMBOL",
-          "name": "price_volume"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "and_keyword"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "or_keyword"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "not_keyword"
+          "name": "expression"
         }
       ]
     },
@@ -281,65 +203,146 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "function",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "FIELD",
-          "name": "method",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",
           "value": "("
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "number"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "number"
-                      }
-                    ]
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "expression"
             },
             {
-              "type": "BLANK"
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                ]
+              }
             }
           ]
         },
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "logical_expression": {
+      "type": "PREC_LEFT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "and"
+              },
+              {
+                "type": "STRING",
+                "value": "or"
+              },
+              {
+                "type": "STRING",
+                "value": "not"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        ]
+      }
+    },
+    "comparison_expression": {
+      "type": "PREC_LEFT",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "<"
+              },
+              {
+                "type": "STRING",
+                "value": ">"
+              },
+              {
+                "type": "STRING",
+                "value": "<="
+              },
+              {
+                "type": "STRING",
+                "value": ">="
+              },
+              {
+                "type": "STRING",
+                "value": "=="
+              },
+              {
+                "type": "STRING",
+                "value": "!="
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        ]
+      }
+    },
+    "price_variable": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "C"
+        },
+        {
+          "type": "STRING",
+          "value": "O"
+        },
+        {
+          "type": "STRING",
+          "value": "H"
+        },
+        {
+          "type": "STRING",
+          "value": "L"
+        },
+        {
+          "type": "STRING",
+          "value": "V"
         }
       ]
     },
@@ -354,115 +357,6 @@
     "string": {
       "type": "PATTERN",
       "value": "\"[^\"]*\""
-    },
-    "param_keyword": {
-      "type": "STRING",
-      "value": "PARAM"
-    },
-    "name_keyword": {
-      "type": "STRING",
-      "value": "NAME"
-    },
-    "type_keyword": {
-      "type": "STRING",
-      "value": "TYPE"
-    },
-    "buy_keyword": {
-      "type": "STRING",
-      "value": "BUY"
-    },
-    "sell_keyword": {
-      "type": "STRING",
-      "value": "SELL"
-    },
-    "rebalance_keyword": {
-      "type": "STRING",
-      "value": "REBALANCE"
-    },
-    "selection_keyword": {
-      "type": "STRING",
-      "value": "SELECTION"
-    },
-    "allocation_keyword": {
-      "type": "STRING",
-      "value": "ALLOCATION"
-    },
-    "price_close": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "C"
-        },
-        {
-          "type": "STRING",
-          "value": "CLOSE"
-        }
-      ]
-    },
-    "price_open": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "O"
-        },
-        {
-          "type": "STRING",
-          "value": "OPEN"
-        }
-      ]
-    },
-    "price_high": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "H"
-        },
-        {
-          "type": "STRING",
-          "value": "HIGH"
-        }
-      ]
-    },
-    "price_low": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "L"
-        },
-        {
-          "type": "STRING",
-          "value": "LOW"
-        }
-      ]
-    },
-    "price_volume": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "V"
-        },
-        {
-          "type": "STRING",
-          "value": "VOLUME"
-        }
-      ]
-    },
-    "and_keyword": {
-      "type": "STRING",
-      "value": "and"
-    },
-    "or_keyword": {
-      "type": "STRING",
-      "value": "or"
-    },
-    "not_keyword": {
-      "type": "STRING",
-      "value": "not"
     },
     "comment": {
       "type": "CHOICE",
@@ -499,7 +393,11 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "[\\s\\f\\uFEFF\\u2060\\u200B]"
+    },
+    {
+      "type": "STRING",
+      "value": ","
     }
   ],
   "conflicts": [],

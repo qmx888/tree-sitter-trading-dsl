@@ -1,34 +1,57 @@
 [
   {
-    "type": "assignment",
+    "type": "assignment_statement",
     "named": true,
-    "fields": {
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "buy_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "comparison_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "expression",
@@ -39,7 +62,7 @@
       "required": true,
       "types": [
         {
-          "type": "and_keyword",
+          "type": "comparison_expression",
           "named": true
         },
         {
@@ -51,7 +74,11 @@
           "named": true
         },
         {
-          "type": "not_keyword",
+          "type": "logical_expression",
+          "named": true
+        },
+        {
+          "type": "not_expression",
           "named": true
         },
         {
@@ -59,27 +86,7 @@
           "named": true
         },
         {
-          "type": "or_keyword",
-          "named": true
-        },
-        {
-          "type": "price_close",
-          "named": true
-        },
-        {
-          "type": "price_high",
-          "named": true
-        },
-        {
-          "type": "price_low",
-          "named": true
-        },
-        {
-          "type": "price_open",
-          "named": true
-        },
-        {
-          "type": "price_volume",
+          "type": "price_variable",
           "named": true
         },
         {
@@ -92,32 +99,79 @@
   {
     "type": "function_call",
     "named": true,
-    "fields": {
-      "function": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "method": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "logical_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "name_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "param_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
         {
           "type": "number",
           "named": true
@@ -126,129 +180,39 @@
     }
   },
   {
-    "type": "metadata_statement",
+    "type": "param_statement",
     "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "allocation_keyword",
-          "named": true
-        },
-        {
-          "type": "buy_keyword",
-          "named": true
-        },
-        {
-          "type": "name_keyword",
-          "named": true
-        },
-        {
-          "type": "rebalance_keyword",
-          "named": true
-        },
-        {
-          "type": "selection_keyword",
-          "named": true
-        },
-        {
-          "type": "sell_keyword",
-          "named": true
-        },
-        {
-          "type": "type_keyword",
+          "type": "param_definition",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "parameter_definition",
+    "type": "price_variable",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {}
+  },
+  {
+    "type": "sell_statement",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "param_keyword",
+          "type": "expression",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "price_close",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "price_high",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "price_low",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "price_open",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "price_volume",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "source_file",
@@ -260,49 +224,35 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "buy_statement",
+          "named": true
+        },
+        {
           "type": "comment",
           "named": true
         },
         {
-          "type": "metadata_statement",
+          "type": "name_statement",
           "named": true
         },
         {
-          "type": "parameter_definition",
+          "type": "param_statement",
           "named": true
         },
         {
-          "type": "strategy_definition",
+          "type": "sell_statement",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "strategy_definition",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "assignment",
-          "named": true
-        }
-      ]
-    }
+    "type": "!=",
+    "named": false
   },
   {
     "type": "#",
@@ -318,14 +268,27 @@
   },
   {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": ".",
-    "named": false
+    "named": false,
+    "extra": true
   },
   {
     "type": "//",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ":=",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
     "named": false
   },
   {
@@ -333,11 +296,23 @@
     "named": false
   },
   {
-    "type": "C",
+    "type": "==",
     "named": false
   },
   {
-    "type": "CLOSE",
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "BUY",
+    "named": false
+  },
+  {
+    "type": "C",
     "named": false
   },
   {
@@ -345,15 +320,11 @@
     "named": false
   },
   {
-    "type": "HIGH",
-    "named": false
-  },
-  {
     "type": "L",
     "named": false
   },
   {
-    "type": "LOW",
+    "type": "NAME",
     "named": false
   },
   {
@@ -361,7 +332,11 @@
     "named": false
   },
   {
-    "type": "OPEN",
+    "type": "PARAM",
+    "named": false
+  },
+  {
+    "type": "SELL",
     "named": false
   },
   {
@@ -369,75 +344,27 @@
     "named": false
   },
   {
-    "type": "VOLUME",
+    "type": "and",
     "named": false
-  },
-  {
-    "type": "allocation_keyword",
-    "named": true
-  },
-  {
-    "type": "and_keyword",
-    "named": true
-  },
-  {
-    "type": "buy_keyword",
-    "named": true
   },
   {
     "type": "identifier",
     "named": true
   },
   {
-    "type": "name_keyword",
-    "named": true
-  },
-  {
-    "type": "not_keyword",
-    "named": true
+    "type": "not",
+    "named": false
   },
   {
     "type": "number",
     "named": true
   },
   {
-    "type": "or_keyword",
-    "named": true
-  },
-  {
-    "type": "param_keyword",
-    "named": true
-  },
-  {
-    "type": "rebalance_keyword",
-    "named": true
-  },
-  {
-    "type": "selection_keyword",
-    "named": true
-  },
-  {
-    "type": "sell_keyword",
-    "named": true
-  },
-  {
-    "type": "strategy",
+    "type": "or",
     "named": false
   },
   {
     "type": "string",
     "named": true
-  },
-  {
-    "type": "type_keyword",
-    "named": true
-  },
-  {
-    "type": "{",
-    "named": false
-  },
-  {
-    "type": "}",
-    "named": false
   }
 ]

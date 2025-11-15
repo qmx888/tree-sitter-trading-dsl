@@ -1,45 +1,52 @@
 module.exports = grammar({
   name: 'trading_dsl',
 
+  externals: $ => [],
+
+  extras: $ => [/[\s\f\uFEFF\u2060\u200B]/, ','],
+
   rules: {
     source_file: $ => repeat(choice(
-      $.strategy_definition,
-      $.parameter_definition,
-      $.metadata_statement,
+      $.name_statement,
+      $.param_statement,
+      $.assignment_statement,
+      $.buy_statement,
+      $.sell_statement,
       $.comment
     )),
 
-    strategy_definition: $ => seq(
-      'strategy',
-      field('name', $.identifier),
-      '{',
-      repeat($.assignment),
-      '}'
+    name_statement: $ => seq(
+      'NAME',
+      $.string
     ),
 
-    parameter_definition: $ => seq(
-      $.param_keyword,
-      field('name', $.identifier),
+    param_statement: $ => seq(
+      'PARAM',
+      commaSep1($.param_definition)
+    ),
+
+    param_definition: $ => seq(
+      $.identifier,
       '=',
-      field('value', choice($.number, $.string))
+      $.number
     ),
 
-    metadata_statement: $ => seq(
-      choice(
-        seq($.name_keyword, field('value', $.string)),
-        seq($.type_keyword, field('value', $.string)),
-        seq($.buy_keyword, field('condition', $.expression)),
-        seq($.sell_keyword, field('condition', $.expression)),
-        seq($.rebalance_keyword, field('condition', $.expression)),
-        $.selection_keyword,
-        $.allocation_keyword
-      )
+    assignment_statement: $ => seq(
+      $.identifier,
+      ':=',
+      $.expression
     ),
 
-    assignment: $ => seq(
-      field('left', $.identifier),
-      '=',
-      field('right', $.expression)
+    buy_statement: $ => seq(
+      'BUY',
+      ':',
+      $.expression
+    ),
+
+    sell_statement: $ => seq(
+      'SELL',
+      ':',
+      $.expression
     ),
 
     expression: $ => choice(
@@ -47,52 +54,43 @@ module.exports = grammar({
       $.identifier,
       $.number,
       $.string,
-      $.price_close,
-      $.price_open,
-      $.price_high,
-      $.price_low,
-      $.price_volume,
-      $.and_keyword,
-      $.or_keyword,
-      $.not_keyword
+      $.price_variable,
+      $.logical_expression,
+      $.comparison_expression,
+      $.not_expression
+    ),
+
+    not_expression: $ => seq(
+      'not',
+      $.expression
     ),
 
     function_call: $ => seq(
-      field('function', $.identifier),
-      '.',
-      field('method', $.identifier),
+      $.identifier,
       '(',
-      commaSep($.number),
+      commaSep1($.expression),
       ')'
     ),
+
+    logical_expression: $ => prec.left(2, seq(
+      $.expression,
+      choice('and', 'or', 'not'),
+      $.expression
+    )),
+
+    comparison_expression: $ => prec.left(3, seq(
+      $.expression,
+      choice('<', '>', '<=', '>=', '==', '!='),
+      $.expression
+    )),
+
+    price_variable: $ => choice('C', 'O', 'H', 'L', 'V'),
 
     identifier: $ => /[A-Za-z_][A-Za-z0-9_]*/,
 
     number: $ => /\d+/,
 
     string: $ => /"[^"]*"/,
-
-    // Keyword definitions for TradingDSL
-    param_keyword: $ => 'PARAM',
-    name_keyword: $ => 'NAME',
-    type_keyword: $ => 'TYPE',
-    buy_keyword: $ => 'BUY',
-    sell_keyword: $ => 'SELL',
-    rebalance_keyword: $ => 'REBALANCE',
-    selection_keyword: $ => 'SELECTION',
-    allocation_keyword: $ => 'ALLOCATION',
-
-    // Price variable definitions
-    price_close: $ => choice('C', 'CLOSE'),
-    price_open: $ => choice('O', 'OPEN'),
-    price_high: $ => choice('H', 'HIGH'),
-    price_low: $ => choice('L', 'LOW'),
-    price_volume: $ => choice('V', 'VOLUME'),
-
-    // Logical operator definitions
-    and_keyword: $ => 'and',
-    or_keyword: $ => 'or',
-    not_keyword: $ => 'not',
 
     comment: $ => choice(
       seq('//', /.*/),
