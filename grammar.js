@@ -5,7 +5,7 @@ module.exports = grammar({
     source_file: $ => repeat(choice(
       $.strategy_definition,
       $.parameter_definition,
-      $.metadata_definition,
+      $.metadata_statement,
       $.comment
     )),
 
@@ -24,9 +24,16 @@ module.exports = grammar({
       field('value', choice($.number, $.string))
     ),
 
-    metadata_definition: $ => seq(
-      choice('NAME', 'TYPE'),
-      field('value', $.string)
+    metadata_statement: $ => seq(
+      choice(
+        seq('NAME', field('value', $.string)),
+        seq('TYPE', field('value', $.string)),
+        seq('BUY', field('condition', $.expression)),
+        seq('SELL', field('condition', $.expression)),
+        seq('REBALANCE', field('condition', $.expression)),
+        'SELECTION',
+        'ALLOCATION'
+      )
     ),
 
     assignment: $ => seq(
